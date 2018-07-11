@@ -1,0 +1,87 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LineOfSight : MonoBehaviour
+{
+    [Header("Component Setup")]
+    public GameObject thePlayer;
+    public EnemyGun enemyGun;
+    public bool isDrone;
+
+    [Header("Detection")]
+    public float HoodRadius;
+    public float range;
+
+    //[HideInInspector]
+    public bool CanSeeTarget;
+    //public Transform gameObject = null;
+
+
+    void Awake()
+    {
+        thePlayer = GameObject.FindGameObjectWithTag("MainCamera");
+
+        if (isDrone)
+        {
+            enemyGun = FindObjectOfType<EnemyGun>();
+        }
+        else
+        {
+            enemyGun = GetComponentInChildren<EnemyGun>();
+        }
+    }
+    void Update()
+    {
+        bool DidSeeTarget = CanSeeTarget;
+        int hoodSize = 0;
+        Collider[] hood = Physics.OverlapSphere(transform.position, HoodRadius);
+        CanSeeTarget = false;
+        foreach(Collider guyInHood in hood)
+        {
+            hoodSize++;
+            if (guyInHood.transform.GetComponent<PlayerStats>())
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(gameObject.transform.position, (thePlayer.transform.position - gameObject.transform.position).normalized, out hit, range))
+                {
+                    //Debug.Log(hit.transform.name);
+                    //checks to see if an Abstract script named "Player" exists on the object colliding with this raycast
+                    PlayerController player = hit.transform.GetComponent<PlayerController>();
+                    if (player != null)
+                    {
+                        CanSeeTarget = true;
+                    }
+                    //else if (player == null)
+                    //{
+                    //    //CanSeeTarget = false;
+                    //}
+                }
+            }
+            //else if(!guyInHood.transform.GetComponent<PlayerStats>())
+            //{
+            //   // CanSeeTarget = false;
+            //}
+        }
+
+        if(DidSeeTarget && !CanSeeTarget)
+        {
+            enemyGun.TurnOffEffects();
+            enemyGun.enabled = false;
+        }
+
+        if(CanSeeTarget)
+        {
+            enemyGun.enabled = true;
+        }
+    }
+
+        
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.grey;
+        //Gizmos.DrawRay(gameObject.transform.position, (thePlayer.transform.position - gameObject.transform.position).normalized);
+        Gizmos.DrawSphere(gameObject.transform.position, HoodRadius);
+
+    }
+}
