@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
 
-    public void Move(Vector3 move, bool walk, bool run)
+    public void Move(Vector3 move)
     {
         if (move.magnitude > 1f) move.Normalize();
         move = transform.InverseTransformDirection(move);

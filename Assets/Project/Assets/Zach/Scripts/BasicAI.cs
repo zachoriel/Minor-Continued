@@ -95,7 +95,7 @@ public class BasicAI : MonoBehaviour
         if (Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position) >= 10)
         {
             agent.destination = waypoints[waypointIndex].transform.position;
-            character.Move(agent.desiredVelocity, false, false);
+            character.Move(agent.desiredVelocity);
         }
         else if (Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position) <= 10)
         {
@@ -110,7 +110,7 @@ public class BasicAI : MonoBehaviour
         }
         else
         {
-            character.Move(Vector3.zero, false, false);
+            character.Move(Vector3.zero);
         }
     }
 
@@ -126,7 +126,7 @@ public class BasicAI : MonoBehaviour
         agent.speed = chaseSpeed;
         agent.destination = target.gameObject.transform.position;
             
-        character.Move(agent.desiredVelocity, false, false);
+        character.Move(agent.desiredVelocity);
     }
 
     void Flee()
@@ -150,7 +150,7 @@ public class BasicAI : MonoBehaviour
         {
             agent.speed = fleeSpeed;
             agent.destination = nearestEnemy.transform.position;
-            character.Move(agent.desiredVelocity, false, false);
+            character.Move(agent.desiredVelocity);
         }
         else
         {

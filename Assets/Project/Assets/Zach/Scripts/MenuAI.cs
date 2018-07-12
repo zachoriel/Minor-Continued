@@ -69,7 +69,7 @@ using UnityEngine.AI;
             if (Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position) >= 2)
             {
                 agent.destination = waypoints[waypointIndex].transform.position;
-                character.Move(agent.desiredVelocity, false, false);
+                character.Move(agent.desiredVelocity);
             }
             else if (Vector3.Distance(transform.position, waypoints[waypointIndex].transform.position) <= 2)
             {
@@ -84,7 +84,7 @@ using UnityEngine.AI;
             }
             else
             {
-                character.Move(Vector3.zero, false, false);
+                character.Move(Vector3.zero);
             }
         }
 
@@ -93,7 +93,7 @@ using UnityEngine.AI;
             agent.speed = chaseSpeed;
             agent.destination = target.gameObject.transform.position;
         
-            character.Move(agent.desiredVelocity, false, false);
+            character.Move(agent.desiredVelocity);
         }
 
         void Update()
