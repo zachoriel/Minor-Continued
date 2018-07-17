@@ -56,16 +56,17 @@ public class CameraScript : MonoBehaviour
         if (invertedControls.invertedMouse == false)
         {
             yaw += Input.GetAxis("Mouse X") * speedH;
+            pitch -= Input.GetAxis("Mouse Y") * speedV;
         }
         else
         {
             yaw -= Input.GetAxis("Mouse X") * speedH;
+            pitch += Input.GetAxis("Mouse Y") * speedV;
         }
-        //pitch -= Input.GetAxis("Mouse Y") * speedV;
 
-        //pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        transform.eulerAngles = new Vector3(/*pitch*/0, yaw, 0);
+        transform.eulerAngles = new Vector3(pitch /*0*/, yaw, 0);
         UpdateCursorLock();
 
         // Camera shake

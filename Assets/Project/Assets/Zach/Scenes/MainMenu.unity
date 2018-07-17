@@ -12574,7 +12574,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The Elder Scrolls VII: Wolfenstein Remastered'
+  m_Text: The Escape
 --- !u!222 &1056885412
 CanvasRenderer:
   m_ObjectHideFlags: 0
